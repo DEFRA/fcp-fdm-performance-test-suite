@@ -18,7 +18,6 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Access health endpoint">
           <stringProp name="TestPlan.comments">Load the main homepage</stringProp>
           <stringProp name="HTTPSampler.domain">${__P(domain, fcp-fdm.${__P(env)}.cdp-int.defra.cloud)}</stringProp>
@@ -45,7 +44,7 @@
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-
+      </hashTree>
       <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
