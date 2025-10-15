@@ -1,0 +1,52 @@
+services:
+  development:
+    container_name: fcp-fdm-performance-test-suite-development
+    build: .
+    links:
+      - 'localstack:localstack'
+    depends_on:
+      localstack:
+        condition: service_healthy
+    volumes:
+      - ./reports:/opt/perftest/reports
+    environment:
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_SECRET_KEY: test
+      AWS_REGION: eu-west-2
+      S3_ENDPOINT: 'http://fcp-fdm-performance-test-suite-localstack:4566'
+      RESULTS_OUTPUT_S3_PATH: 's3://fcp-fdm-performance-test-suite'
+      ENVIRONMENT: local
+      DOMAIN: host.docker.internal
+      LOCAL_PORT: 3000
+      PROTOCOL: http
+    networks:
+      - fcp-fdm
+
+  localstack:
+    image: localstack/localstack:3.0.2
+    container_name: fcp-fdm-performance-test-suite-localstack
+    environment:
+      DEBUG: ${DEBUG:-1}
+      LS_LOG: WARN
+      SERVICES: s3,sqs,sns,firehose
+      LOCALSTACK_HOST: 127.0.0.1
+      AWS_REGION: eu-west-2
+      AWS_DEFAULT_REGION: eu-west-2
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+    volumes:
+      - '${TMPDIR:-/tmp}/localstack:/var/lib/localstack'
+      - ./localstack.sh:/etc/localstack/init/ready.d/localstack.sh
+    healthcheck:
+      test: ['CMD', 'curl', 'localhost:4566']
+      interval: 5s
+      start_period: 5s
+      retries: 3
+    networks:
+      - fcp-fdm
+
+networks:
+  fcp-fdm:
+    driver: bridge
+    name: fcp-fdm
