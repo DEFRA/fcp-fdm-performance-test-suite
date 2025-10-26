@@ -21,6 +21,7 @@ LOGFILE=${JM_LOGS}/perftest-${TEST_SCENARIO}.log
 
 DOMAIN=${DOMAIN:-fcp-fdm.${ENVIRONMENT}.cdp-int.defra.cloud}
 LOCAL_PORT=${LOCAL_PORT:-443}
+LOCAL_EVENT_PORT=${LOCAL_EVENT_PORT:-443}
 PROTOCOL=${PROTOCOL:-https}
 
 # Run the test suite
@@ -28,7 +29,10 @@ jmeter -n -t ${SCENARIOFILE} -e -l "${REPORTFILE}" -o ${JM_REPORTS} -j ${LOGFILE
 -Jenv="${ENVIRONMENT}" \
 -Jdomain="${DOMAIN}" \
 -Jport="${LOCAL_PORT}" \
--Jprotocol="${PROTOCOL}"
+-Jevent_port="${LOCAL_EVENT_PORT}" \
+-Jprotocol="${PROTOCOL}" \
+-Jdisable_events="${DISABLE_EVENTS:-false}"
+
 test_exit_code=$?
 
 # Publish the results into S3 so they can be displayed in the CDP Portal

@@ -19,7 +19,9 @@ services:
       ENVIRONMENT: local
       DOMAIN: host.docker.internal
       LOCAL_PORT: 3000
+      LOCAL_EVENT_PORT: 3002
       PROTOCOL: http
+      DISABLE_EVENTS: ${DISABLE_EVENTS:-false}
     networks:
       - fcp-fdm
 
