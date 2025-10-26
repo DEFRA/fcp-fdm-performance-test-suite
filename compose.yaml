@@ -19,9 +19,9 @@ services:
       ENVIRONMENT: local
       DOMAIN: host.docker.internal
       LOCAL_PORT: 3000
+      LOCAL_EVENT_PORT: 3002
       PROTOCOL: http
-    networks:
-      - fcp-fdm
+      DISABLE_EVENTS: ${DISABLE_EVENTS:-false}
 
   localstack:
     image: localstack/localstack:3.0.2
@@ -43,10 +43,3 @@ services:
       interval: 5s
       start_period: 5s
       retries: 3
-    networks:
-      - fcp-fdm
-
-networks:
-  fcp-fdm:
-    driver: bridge
-    name: fcp-fdm
