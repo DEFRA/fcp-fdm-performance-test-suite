@@ -20,6 +20,7 @@ REPORTFILE=${NOW}-perftest-${TEST_SCENARIO}-report.csv
 LOGFILE=${JM_LOGS}/perftest-${TEST_SCENARIO}.log
 
 DOMAIN=${DOMAIN:-fcp-fdm.${ENVIRONMENT}.cdp-int.defra.cloud}
+EVENT_DOMAIN=${EVENT_DOMAIN:-fcp-fdm-event-publisher-stub.${ENVIRONMENT}.cdp-int.defra.cloud}
 LOCAL_PORT=${LOCAL_PORT:-443}
 LOCAL_EVENT_PORT=${LOCAL_EVENT_PORT:-443}
 PROTOCOL=${PROTOCOL:-https}
@@ -28,6 +29,7 @@ PROTOCOL=${PROTOCOL:-https}
 jmeter -n -t ${SCENARIOFILE} -e -l "${REPORTFILE}" -o ${JM_REPORTS} -j ${LOGFILE} -f \
 -Jenv="${ENVIRONMENT}" \
 -Jdomain="${DOMAIN}" \
+-Jevent_domain="${EVENT_DOMAIN}" \
 -Jport="${LOCAL_PORT}" \
 -Jevent_port="${LOCAL_EVENT_PORT}" \
 -Jprotocol="${PROTOCOL}" \
