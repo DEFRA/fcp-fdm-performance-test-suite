@@ -18,6 +18,7 @@ services:
       RESULTS_OUTPUT_S3_PATH: 's3://fcp-fdm-performance-test-suite'
       ENVIRONMENT: local
       DOMAIN: host.docker.internal
+      EVENT_DOMAIN: host.docker.internal
       LOCAL_PORT: 3000
       LOCAL_EVENT_PORT: 3002
       PROTOCOL: http
