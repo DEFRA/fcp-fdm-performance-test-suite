@@ -32,7 +32,7 @@
             <stringProp name="HTTPSampler.domain">${__P(event_domain, fcp-fdm-event-publisher-stub.${__P(env)}.cdp-int.defra.cloud)}</stringProp>
             <stringProp name="HTTPSampler.protocol">${__P(protocol, https)}</stringProp>
             <stringProp name="HTTPSampler.port">${__P(event_port, 3002)}</stringProp>
-            <stringProp name="HTTPSampler.path">/api/v1/simulate/messages?repetitions=1000</stringProp>
+            <stringProp name="HTTPSampler.path">/api/v1/simulate/messages?repetitions=10000</stringProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
