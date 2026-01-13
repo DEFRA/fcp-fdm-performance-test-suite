@@ -25,6 +25,19 @@ LOCAL_PORT=${LOCAL_PORT:-443}
 LOCAL_EVENT_PORT=${LOCAL_EVENT_PORT:-443}
 PROTOCOL=${PROTOCOL:-https}
 
+PROXY_HOST=""
+PROXY_PORT=""
+if [ -n "${HTTP_PROXY}" ]; then
+  # Extract host and port from HTTP_PROXY (format: http://host:port or https://host:port)
+  PROXY_HOST=$(echo "${HTTP_PROXY}" | sed -E 's|^https?://([^:/]+).*|\1|')
+  PROXY_PORT=$(echo "${HTTP_PROXY}" | sed -E 's|^https?://[^:]+:([0-9]+).*|\1|')
+
+  if [ "${PROXY_PORT}" = "${HTTP_PROXY}" ]; then
+    PROXY_PORT=""
+  fi
+  echo "Using proxy: ${PROXY_HOST}:${PROXY_PORT}"
+fi
+
 # Run the test suite
 jmeter -n -t ${SCENARIOFILE} -e -l "${REPORTFILE}" -o ${JM_REPORTS} -j ${LOGFILE} -f \
 -Jenv="${ENVIRONMENT}" \
@@ -38,7 +51,8 @@ jmeter -n -t ${SCENARIOFILE} -e -l "${REPORTFILE}" -o ${JM_REPORTS} -j ${LOGFILE
 -Jtenant_id="${TENANT_ID}" \
 -Jclient_id="${CLIENT_ID}" \
 -Jclient_secret="${CLIENT_SECRET}" \
--Jscope="${SCOPE}"
+-Jscope="${SCOPE}" \
+-Jhttp_proxy="${HTTP_PROXY}"
 
 test_exit_code=$?
 
