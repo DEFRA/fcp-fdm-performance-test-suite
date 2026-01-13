@@ -1,6 +1,6 @@
 # fcp-fdm-performance-test-suite
 
-A JMeter based test runner for the CDP Platform.
+A JMeter based test runner for the Farming Data Model (FDM).
 
 - [Licence](#licence)
   - [About the licence](#about-the-licence)
@@ -22,11 +22,52 @@ The `fcp-fdm-performance-test-suite` can be ran locally via Docker compose.
 You will first need to run the service you wish to test against locally.
 
 Once this is complete, you can trigger a local test run:
-```
+
+```bash
 ./test.sh
 ```
 
 Test reports are saved locally and can be viewed in `reports` directory.
+
+## Authentication
+
+The test suite supports optional Microsoft Entra (Azure AD) authentication using OAuth 2.0 client credentials flow. This allows testing of authenticated APIs without manual token management.
+
+### How It Works
+
+1. **Token Acquisition**: During the Setup Thread Group, a single access token is requested from Microsoft Entra (`login.microsoftonline.com`)
+2. **Token Sharing**: The token is extracted and stored in the `${access_token}` variable, shared across all test threads
+3. **Authorization Header**: When enabled, each request to the Messages API automatically includes `Authorization: Bearer ${access_token}`
+
+### Configuration
+
+Authentication is controlled via environment variables in the `.env` file:
+
+```env
+# Enable/disable authentication
+AUTH_ENABLED=true
+
+# Microsoft Entra credentials
+TENANT_ID=your-azure-tenant-id
+CLIENT_ID=your-app-client-id
+CLIENT_SECRET=your-app-secret
+```
+
+### Token Lifecycle
+
+- Tokens are acquired **once** during test setup
+- The token is shared across all threads
+- The token expires after 60 minutes, they remain valid for the complete test run
+
+### Disabling Authentication
+
+To test unauthenticated endpoints or run tests in environments without authentication:
+
+```env
+AUTH_ENABLED=false
+```
+
+When disabled, the test suite skips token acquisition and does not add Authorization headers to requests.
 
 ## Licence
 

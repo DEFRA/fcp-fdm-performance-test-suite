@@ -33,7 +33,12 @@ jmeter -n -t ${SCENARIOFILE} -e -l "${REPORTFILE}" -o ${JM_REPORTS} -j ${LOGFILE
 -Jport="${LOCAL_PORT}" \
 -Jevent_port="${LOCAL_EVENT_PORT}" \
 -Jprotocol="${PROTOCOL}" \
--Jdisable_events="${DISABLE_EVENTS:-false}"
+-Jdisable_events="${DISABLE_EVENTS:-false}" \
+-Jauth_enabled="${AUTH_ENABLED:-false}" \
+-Jtenant_id="${TENANT_ID}" \
+-Jclient_id="${CLIENT_ID}" \
+-Jclient_secret="${CLIENT_SECRET}" \
+-Jscope="${SCOPE}"
 
 test_exit_code=$?
 

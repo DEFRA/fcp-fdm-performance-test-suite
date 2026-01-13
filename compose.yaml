@@ -23,6 +23,11 @@ services:
       LOCAL_EVENT_PORT: 3002
       PROTOCOL: http
       DISABLE_EVENTS: ${DISABLE_EVENTS:-false}
+      AUTH_ENABLED: ${AUTH_ENABLED:-false}
+      TENANT_ID: ${TENANT_ID}
+      CLIENT_ID: ${CLIENT_ID}
+      CLIENT_SECRET: ${CLIENT_SECRET}
+      SCOPE: ${CLIENT_ID}/.default
 
   localstack:
     image: localstack/localstack:3.0.2
