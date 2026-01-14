@@ -50,6 +50,26 @@
           <boolProp name="IfController.evaluateAll">false</boolProp>
         </IfController>
         <hashTree>
+        <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Setup Proxy if Present" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">// Set proxy configuration if HTTP_PROXY is provided
+String httpProxy = props.get(&quot;http_proxy&quot;)
+if (httpProxy != null &amp;&amp; !httpProxy.isEmpty()) {
+    // Parse proxy URL to extract host and port
+    def matcher = (httpProxy =~ /^https?:\/\/([^:\/]+)(?::(\d+))?/)
+    if (matcher.find()) {
+        String proxyHost = matcher.group(1)
+        String proxyPort = matcher.group(2) ?: &quot;80&quot;
+        sampler.setProperty(&quot;HTTPSampler.proxyHost&quot;, proxyHost)
+        sampler.setProperty(&quot;HTTPSampler.proxyPort&quot;, proxyPort)
+        log.info(&quot;Using proxy: &quot; + proxyHost + &quot;:&quot; + proxyPort)
+    }
+}</stringProp>
+        </JSR223PreProcessor>
+        <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Entra Token" enabled="true">
           <stringProp name="HTTPSampler.domain">login.microsoftonline.com</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -124,11 +144,11 @@ props.put(&quot;access_token&quot;, vars.get(&quot;access_token&quot;))</stringP
       <!-- Main Thread Group -->
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group">
         <intProp name="ThreadGroup.num_threads">75</intProp>
-        <intProp name="ThreadGroup.ramp_time">30</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">630</stringProp>
+        <stringProp name="ThreadGroup.duration">10</stringProp>
         <stringProp name="ThreadGroup.delay">0</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
           <stringProp name="LoopController.loops">-1</stringProp>
