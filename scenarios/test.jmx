@@ -148,7 +148,7 @@ props.put(&quot;access_token&quot;, vars.get(&quot;access_token&quot;))</stringP
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">5</stringProp>
+        <stringProp name="ThreadGroup.duration">630</stringProp>
         <stringProp name="ThreadGroup.delay">0</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
           <stringProp name="LoopController.loops">-1</stringProp>
