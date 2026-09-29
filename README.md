@@ -1,6 +1,8 @@
 # fcp-fdm-performance-test-suite
 
-A JMeter based test runner for the Farming Data Model (FDM).
+A JMeter based test runner for the Farming Operation Data Store (FODS).
+
+> **Naming:** The Farming Data Model (FDM) has been rebranded as the Farming Operation Data Store (FODS). The repository, CDP service names, hostnames and S3 bucket retain the `fcp-fdm` prefix for backwards compatibility with CDP.
 
 - [Licence](#licence)
   - [About the licence](#about-the-licence)
