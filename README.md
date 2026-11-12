@@ -7,6 +7,19 @@ A JMeter based test runner for the Farming Operation Data Store (FODS).
 - [Licence](#licence)
   - [About the licence](#about-the-licence)
 
+## Setup
+
+A pre-commit hook stops real-looking CRNs and SBIs being committed. Only use synthetic identifiers: CRNs from 9000000000 to 9999999999 and SBIs from 800000000 to 899999999. Pull requests run the same check.
+
+Run this once per clone to install the hook (requires Node.js 22 or later and npm 11.10 or later):
+
+```bash
+npm install
+npm run setup:husky
+```
+
+See [synthetic ID check](https://github.com/DEFRA/fcp-sfd-core/tree/main/scripts/check-synthetic-ids) for how to allow numbers that aren't identifiers.
+
 ## Build
 
 Test suites are built automatically by the [.github/workflows/publish.yml](.github/workflows/publish.yml) action whenever a change are committed to the `main` branch.
