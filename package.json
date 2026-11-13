@@ -1,0 +1,18 @@
+{
+  "name": "fcp-fdm-performance-test-suite",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Performance test suite for the Farming Operation Data Store (FODS)",
+  "type": "module",
+  "scripts": {
+    "check:synthetic-ids": "sfd-id-check --staged",
+    "postinstall": "npm run setup:husky",
+    "setup:husky": "node -e \"try { (await import('husky')).default() } catch (e) { if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e }\" --input-type module"
+  },
+  "author": "Defra DDTS",
+  "license": "OGL-UK-3.0",
+  "devDependencies": {
+    "fcp-sfd-core": "github:DEFRA/fcp-sfd-core#95f58ade56b2d0dd0f15bdcba6a5f37a54bcc939",
+    "husky": "9.1.7"
+  }
+}
